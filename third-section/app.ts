@@ -1,62 +1,63 @@
-class Department {
-  static test: string = "MAJKULICA";
+/*interface Greetable {
+  name: string;
+  greeting(phrase: string): void;
+}
 
-  /*private id: string;
-  private name: string;*/
-  protected employees: String[] = [];
-
-  constructor(private readonly id: string, public name: string) {
-    this.id = id;
+class Person implements Greetable {
+  name: string;
+  age: number;
+  constructor(name: string, age: number) {
     this.name = name;
+    this.age = age;
   }
 
-  describe(this: Department) {
-    console.log(`Department name: ${this.name}`);
+  greeting(phrase: string): void {}
+}
+
+let user1: Greetable;
+user1 = new Person("15", 12);
+
+user1 = {
+  name: "PAKO",
+  greeting: function (phrase: string) {
+    return phrase;
+  },
+};
+*/
+
+interface Named {
+  readonly name: string;
+  outPutName?: string;
+}
+
+interface Person extends Named {
+  age: number;
+  greeting(phrase: string): void;
+}
+
+class PersonSchema implements Person {
+  readonly name: string;
+  age: number;
+
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
   }
 
-  addEmployee(employee: String) {
-    this.employees.push(employee);
-  }
-
-  printEmployeeInformation() {
-    console.log(this.employees.length);
-    console.log(this.employees);
+  greeting(phrase: string): void {
+    console.log(phrase);
   }
 }
 
-class ITDepartment extends Department {
-  public readonly admins: string[];
-  public repoters: string[];
-  private lastReport: string = "Pedro lebasna";
+const user1 = new PersonSchema("Ajdin", 15);
 
-  constructor(id: string, public readonly name: string) {
-    super(id, name);
-    this.admins = [];
-    this.repoters = [];
-  }
+//Interfaces for functions
 
-  get getLastReport() {
-    return this.lastReport;
-  }
+/*
+type AddFn = (n1: number, n2: number) => void;
+let add: AddFn;
+*/
 
-  set setLastReport(reporter: string) {
-    this.lastReport = reporter;
-  }
-  addReporters(name: string) {
-    this.repoters.push(name);
-  }
-
-  addEmployee(employee: String): void {
-    if (employee === "max") return;
-    this.employees.push(employee);
-  }
+interface AddFn {
+  (a: number, b: number): number;
 }
-
-const ITAccount = new ITDepartment("114", "Ajdin");
-ITAccount.addReporters("Pedro salva");
-
-ITAccount.addEmployee("max1");
-console.log(ITAccount);
-
-ITAccount.setLastReport = " cao malena";
-console.log(ITAccount.getLastReport);
